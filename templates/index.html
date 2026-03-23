@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORACLE SQL WEB - Quản lý Phòng Trọ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --bg: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --error: #ef4444;
+            --info: #6366f1;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Config Panel */
+        .config-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 15px;
+            color: white;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 18px 25px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: 0.3s transform, 0.3s background;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-blue {
+            background: #2563eb;
+        }
+
+        .btn-blue:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-purple {
+            background: #7c3aed;
+        }
+
+        .btn-purple:hover {
+            background: #6d28d9;
+        }
+
+        /* Log Panel */
+        .log-panel {
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .log-header {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .log-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        .log-line {
+            margin-bottom: 4px;
+            border-left: 2px solid transparent;
+            padding-left: 10px;
+        }
+
+        .log-line.error {
+            color: var(--error);
+            border-left-color: var(--error);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .log-line.success {
+            color: var(--success);
+            border-left-color: var(--success);
+        }
+
+        .log-line.info {
+            color: var(--info);
+        }
+
+        .log-line.title {
+            color: #facc15;
+            font-weight: bold;
+            border-bottom: 1px solid #333;
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Success Sparkle Effect */
+        .sparkle-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.8s;
+        }
+
+        .sparkle-btn:hover::after {
+            left: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>ORACLE SQL ENGINE</h1>
+            <p>Hệ thống nạp Database cho Quản lý Phòng Trọ</p>
+        </header>
+
+        <section class="config-card">
+            <div class="grid">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="db_user" value="{{ config.user }}" placeholder="C##QL_TRO">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="db_pass" value="{{ config.password }}" placeholder="123">
+                </div>
+                <div class="form-group">
+                    <label>DSN / Service Name</label>
+                    <input type="text" id="db_dsn" value="{{ config.dsn }}" placeholder="localhost:1521/orcl">
+                </div>
+            </div>
+        </section>
+
+        <div class="actions">
+            <button class="btn btn-blue sparkle-btn" onclick="executeScript('TRO.sql')">
+                <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                    <path
+                        d="M13.12 17.02l2.12 2.12C15.82 19.42 16.42 19.72 17.02 19.72s1.2-.3 1.66-.76l4.24-4.24c.92-.92.92-2.42 0-3.34l-4.24-4.24a2.36 2.36 0 0 0-3.34 0l-4.24 4.24a2.36 2.36 0 1 0 3.34 3.34l.24-.24-.24-.24a1.86 1.86 0 0 1 0-2.6 1.86 1.86 0 0 1 2.6 0l2.58 2.58-2.58 2.58a.46.46 0 0 1-.64 0l-2.12-2.12zm-3.24-4.14L7.76 10.76c-.46-.46-1.06-.76-1.66-.76s-1.2.3-1.66.76L.2 15c-.92.92-.92 2.42 0 3.34l4.24 4.24c.92.92 2.42.92 3.34 0l4.24-4.24a2.36 2.36 0 0 0 0-3.34l-.24-.24.24.24c.46.46 1.2.46 1.66 0z" />
+                    <path d="M18.8 3.51a1 1 0 0 0-1.41 0l-14 14a1 1 0 1 0 1.41 1.41l14-14a1 1 0 0 0 0-1.41z" />
+                </svg>
+                CHẠY SCHEMA (TRO.sql)
+            </button>
+            <button class="btn btn-purple sparkle-btn" onclick="executeScript('TRO~2.sql')">
+                <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+                    <path
+                        d="M21 16.5c0 .38-.21.71-.53.88l-7.97 4.44c-.31.17-.69.17-1 0l-7.97-4.44c-.32-.17-.53-.5-.53-.88v-9c0-.38.21-.71.53-.88l7.97-4.44c.31-.17.69-.17 1 0l7.97 4.44c.32.17.53.5.53.88v9zM12 4.15L6.04 7.5L12 10.85l5.96-3.35L12 4.15zM5 15.91l6 3.35v-6.71L5 9.2v6.71z" />
+                </svg>
+                NẠP DATA & PROC (TRO~2.sql)
+            </button>
+        </div>
+
+        <div class="log-panel">
+            <div class="log-header">
+                <span style="font-weight: 600; color: #60a5fa; font-size: 0.8rem;">ENGINE STATUS: <span
+                        id="status_indicator" style="color: var(--text-secondary)">IDLE</span></span>
+                <button onclick="document.getElementById('log_body').innerHTML=''"
+                    style="background:none; border:none; color: var(--text-secondary); cursor:pointer; font-size: 0.7rem;">XOÁ
+                    LOG</button>
+            </div>
+            <div class="log-body" id="log_body">
+                <div class="log-line info">Sẵn sàng để thực thi. Hãy cấu hình bên trên rồi chọn file SQL.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const logBody = document.getElementById('log_body');
+        const statusInd = document.getElementById('status_indicator');
+
+        function appendLog(text) {
+            const div = document.createElement('div');
+            div.className = 'log-line';
+
+            if (text.includes('[ERROR]') || text.includes('[EXCEPTION]')) div.classList.add('error');
+            else if (text.includes('✅') || text.includes('success')) div.classList.add('success');
+            else if (text.includes('--- Bắt đầu')) div.classList.add('title');
+            else if (text.includes('[INFO]')) div.classList.add('info');
+
+            div.innerText = text;
+            logBody.appendChild(div);
+            logBody.scrollTop = logBody.scrollHeight;
+        }
+
+        async function executeScript(filename) {
+            const config = {
+                user: document.getElementById('db_user').value,
+                password: document.getElementById('db_pass').value,
+                dsn: document.getElementById('db_dsn').value
+            };
+
+            statusInd.innerText = "RUNNING...";
+            statusInd.style.color = "#facc15";
+
+            appendLog(`> ĐANG GỬI YÊU CẦU: ${filename}...`);
+
+            try {
+                const response = await fetch('/execute', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename, config })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n\n');
+                    lines.forEach(line => {
+                        if (line.startsWith('data: ')) {
+                            const message = line.replace('data: ', '');
+                            if (message.trim()) appendLog(message);
+                            if (message.includes('FINISH:')) {
+                                statusInd.innerText = "COMPLETED";
+                                statusInd.style.color = "var(--success)";
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                appendLog(`[EXCEPTION] 🔥 Lỗi kết nối server: ${err.message}`);
+                statusInd.innerText = "FAILED";
+                statusInd.style.color = "var(--error)";
+            }
+        }
+    </script>
+</body>
+
+</html>
