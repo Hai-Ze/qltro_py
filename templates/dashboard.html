@@ -30,7 +30,7 @@
             --radius-sm: 12px;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 29px; }
 
         /* ===== SIDEBAR ===== */
         .sidebar {
@@ -60,7 +60,7 @@
         .nav-item {
             display: flex; align-items: center; gap: 12px; padding: 12px 14px;
             border-radius: var(--radius-sm); cursor: pointer; color: var(--text-sub);
-            font-size: 14px; font-weight: 500; margin-bottom: 4px;
+            font-size: 29px; font-weight: 500; margin-bottom: 4px;
             transition: all 0.2s; position: relative;
         }
         .nav-item .icon { font-size: 18px; width: 26px; text-align: center; }
@@ -115,8 +115,8 @@
         .stat-icon.green { background: var(--green-light); }
         .stat-icon.blue { background: var(--blue-light); }
         .stat-icon.red { background: var(--red-light); }
-        .stat-label { font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .stat-val { font-size: 26px; font-weight: 800; color: var(--text); }
+        .stat-label { font-size: 21px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .stat-val { font-size: 48px; font-weight: 800; color: var(--text); }
 
         /* ===== SECTION HEADERS ===== */
         .sec-header {
@@ -143,9 +143,9 @@
         .room-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(255,107,138,0.3); }
 
         .room-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
-        .room-name { font-size: 18px; font-weight: 800; color: var(--text); }
-        .room-type { font-size: 11px; font-weight: 500; color: var(--text-light); margin-bottom: 12px; }
-        .room-price { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 14px; }
+        .room-name { font-size: 35px; font-weight: 800; color: var(--text); }
+        .room-type { font-size: 23px; font-weight: 500; color: var(--text-light); margin-bottom: 12px; }
+        .room-price { font-size: 38px; font-weight: 800; color: var(--accent); margin-bottom: 14px; }
         .room-price small { font-size: 12px; font-weight: 400; color: var(--text-light); }
 
         .badge {
@@ -159,7 +159,7 @@
         .asset-pill {
             display: inline-flex; align-items: center; gap: 4px;
             background: var(--bg); border: 1px solid var(--border);
-            padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 500; color: var(--text-sub);
+            padding: 6px 12px; border-radius: 6px; font-size: 21px; font-weight: 500; color: var(--text-sub);
         }
 
         .meters-row {
@@ -167,15 +167,15 @@
             padding: 12px 16px; display: flex; gap: 24px; margin-bottom: 16px;
         }
         .meter-col { display: flex; flex-direction: column; gap: 2px; }
-        .meter-col .lbl { font-size: 10px; font-weight: 700; color: var(--text-light); text-transform: uppercase; }
-        .meter-col .val { font-size: 15px; font-weight: 700; color: var(--text); }
+        .meter-col .lbl { font-size: 19px; font-weight: 700; color: var(--text-light); text-transform: uppercase; }
+        .meter-col .val { font-size: 29px; font-weight: 700; color: var(--text); }
 
         /* ===== BUTTONS ===== */
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             padding: 10px 14px; border-radius: var(--radius-sm); border: none;
-            font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+            font-family: inherit; font-size: 21px; font-weight: 700; cursor: pointer;
             transition: all 0.2s; white-space: nowrap;
         }
         .btn-pink { background: var(--accent-grad); color: white; box-shadow: 0 4px 14px rgba(255,107,138,0.3); }
@@ -220,8 +220,8 @@
 
         /* ===== TABLES ===== */
         .data-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-top: 16px; }
-        .data-table th { text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; }
-        .data-table td { padding: 16px; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 14px; }
+        .data-table th { text-align: left; padding: 10px 16px; font-size: 21px; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; }
+        .data-table td { padding: 16px; background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 29px; }
         .data-table tr td:first-child { border-left: 1px solid var(--border); border-radius: 12px 0 0 12px; }
         .data-table tr td:last-child { border-right: 1px solid var(--border); border-radius: 0 12px 12px 0; }
         .data-table tr:hover td { background: #fafbfc; }
@@ -275,6 +275,9 @@
         <div class="nav-item" id="nav-bills" onclick="showSection('bills')">
             <span class="icon">💸</span> Thu tiền
         </div>
+        <div class="nav-item" id="nav-expenses" onclick="showSection('expenses')">
+            <span class="icon">📉</span> Chi phí
+        </div>
     </div>
     <div class="sidebar-footer">
         <b>Phòng Trọ Thỏ 🐰</b>
@@ -290,25 +293,25 @@
         <div class="topbar"><h1>Tổng quan vận hành 📊</h1></div>
         <div class="content">
             <div class="stats-row">
+                <div class="stat-card c-green">
+                    <div class="stat-icon green">🏦</div>
+                    <div class="stat-label">Lợi nhuận ròng</div>
+                    <div class="stat-val" id="profit-val" style="color:var(--green)">---</div>
+                </div>
                 <div class="stat-card c-pink">
                     <div class="stat-icon pink">💰</div>
-                    <div class="stat-label">Doanh thu</div>
+                    <div class="stat-label">Tổng thu</div>
                     <div class="stat-val" id="total-revenue">---</div>
+                </div>
+                <div class="stat-card c-red">
+                    <div class="stat-icon red">📉</div>
+                    <div class="stat-label">Tổng chi</div>
+                    <div class="stat-val" id="total-expense" style="color:var(--red)">---</div>
                 </div>
                 <div class="stat-card c-blue">
                     <div class="stat-icon blue">🏠</div>
-                    <div class="stat-label">Tỷ lệ lấp đầy</div>
+                    <div class="stat-label">Lấp đầy</div>
                     <div class="stat-val" id="stats-occupancy">---%</div>
-                </div>
-                <div class="stat-card c-green">
-                    <div class="stat-icon green">🔑</div>
-                    <div class="stat-label">Đang cho thuê</div>
-                    <div class="stat-val" id="stats-rented">---</div>
-                </div>
-                <div class="stat-card c-red">
-                    <div class="stat-icon red">✨</div>
-                    <div class="stat-label">Phòng trống</div>
-                    <div class="stat-val" id="stats-empty">---</div>
                 </div>
             </div>
             <h2 style="font-size:16px; margin-bottom:16px;">🏆 Khách hàng thanh toán tốt nhất</h2>
@@ -362,6 +365,17 @@
         <div class="topbar"><h1>Lịch sử Thu tiền 💸</h1></div>
         <div class="content">
             <table class="data-table"><thead><tr><th>Phòng</th><th>Khách</th><th>Tháng</th><th>Số tiền</th><th>Tình trạng</th><th></th></tr></thead><tbody id="bills-list-data"></tbody></table>
+        </div>
+    </div>
+
+    <!-- EXPENSES -->
+    <div id="page-expenses" class="page">
+        <div class="topbar">
+            <h1>Chi phí vận hành 📉</h1>
+            <div class="topbar-actions"><button class="btn btn-red" onclick="openAddExpenseModal()">+ Ghi nhận chi phí</button></div>
+        </div>
+        <div class="content">
+            <table class="data-table"><thead><tr><th>Loại chi phí</th><th>Số tiền</th><th>Ngày</th><th>Ghi chú</th><th></th></tr></thead><tbody id="expenses-list-data"></tbody></table>
         </div>
     </div>
 </div>
@@ -469,6 +483,16 @@
     <button class="btn btn-ghost" style="width:100%;margin-top:10px;" onclick="closeModal()">ĐÓNG</button>
 </div></div>
 
+<!-- Add Expense -->
+<div id="modal_add_expense" class="overlay"><div class="modal-box">
+    <h2>📉 Ghi nhận chi phí vận hành</h2>
+    <label>Loại chi phí</label><input type="text" id="ae_loai" placeholder="Vd: Tiền điện tổng, Sửa bóng đèn...">
+    <label>Số tiền (VND)</label><input type="number" id="ae_tien" placeholder="Vd: 500000">
+    <label>Ghi chú</label><input type="text" id="ae_note" placeholder="Vd: Thanh toán tháng 04">
+    <button class="btn btn-red" style="width:100%;margin-top:20px;padding:14px;" onclick="submitAddExpense()">GHI NHẬN CHI PHÍ</button>
+    <button class="btn btn-ghost" style="width:100%;margin-top:10px;" onclick="closeModal()">HỦY</button>
+</div></div>
+
 <script>
 let _rooms=[], _contracts=[], _tenants=[], _cur_assets=[], _cur_c_detail=null;
 const ranks = ['🥇','🥈','🥉','4️⃣','5️⃣'];
@@ -482,12 +506,14 @@ async function loadData() {
         ]);
         _rooms=r; _contracts=c; _tenants=t;
         const rented = _rooms.filter(rm=>rm.trang_thai==='DA_THUE').length;
-        const empty = _rooms.length - rented;
-        document.getElementById('total-revenue').innerText = Number(rev.total).toLocaleString()+'đ';
+        
+        document.getElementById('total-revenue').innerText = Number(rev.total_revenue).toLocaleString()+'đ';
+        document.getElementById('total-expense').innerText = Number(rev.total_expense).toLocaleString()+'đ';
+        document.getElementById('profit-val').innerText = Number(rev.net_profit).toLocaleString()+'đ';
+        
         document.getElementById('stats-occupancy').innerText = _rooms.length ? Math.round(rented/_rooms.length*100)+'%' : '0%';
-        document.getElementById('stats-rented').innerText = rented + ' phòng';
-        document.getElementById('stats-empty').innerText = empty + ' phòng';
-        renderRooms(); renderContracts(); renderTenants(); renderBills();
+        
+        renderRooms(); renderContracts(); renderTenants(); renderBills(); renderExpenses();
         document.getElementById('top-contracts-list').innerHTML = top.map((o,i)=>`
             <div class="top-vip-card">
                 <div class="rank">${ranks[i]||'🏅'}</div>
@@ -596,7 +622,15 @@ async function deleteAsset(id){ await fetch('/api/delete-asset/'+id,{method:'DEL
 function openMeterModal(m){ document.getElementById('meter_ma_phong').value=m; document.getElementById('modal_meters').style.display='flex'; }
 async function submitMeters(){ await fetch('/api/update-meters',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_phong:document.getElementById('meter_ma_phong').value,dien:document.getElementById('m_dien').value,nuoc:document.getElementById('m_nuoc').value})}); closeModal(); loadData(); }
 function openBillModal(m,t){ document.getElementById('b_ma_phong').value=m; document.getElementById('b_info').innerText='Hóa đơn tháng mới cho '+t; document.getElementById('modal_create_bill').style.display='flex'; }
-async function submitCreateBill(){ await fetch('/api/create-bill',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_phong:document.getElementById('b_ma_phong').value,thang_nam:document.getElementById('b_thang').value})}); closeModal(); loadData(); }
+async function submitCreateBill(){
+    const thang = document.getElementById('b_thang').value.trim();
+    if(!thang){ 
+        alert('⚠️ Vui lòng nhập kỳ hóa đơn (MM/YYYY) trước khi xuất!'); 
+        document.getElementById('b_thang').focus(); 
+        return; 
+    }
+    await fetch('/api/create-bill',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_phong:document.getElementById('b_ma_phong').value,thang_nam:thang})}); closeModal(); loadData(); }
+
 async function payBill(id){ if(confirm('Xác nhận đã nhận tiền?')){ await fetch('/api/payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_hd:id})}); loadData(); } }
 function renderBills(){ fetch('/api/bills').then(r=>r.json()).then(d=>{ document.getElementById('bills-list-data').innerHTML=d.map(b=>`<tr><td><b>${b.ten_phong}</b></td><td>${b.ho_ten}</td><td>${b.thang_nam}</td><td style="font-weight:700;color:var(--accent)">${Number(b.tong_tien).toLocaleString()}đ</td><td><span class="badge ${b.trang_thai==='DA_TRA'?'badge-empty':'badge-rented'}">${b.trang_thai==='DA_TRA'?'Đã thu':'Chưa thu'}</span></td><td>${b.trang_thai==='CHUA_TRA'?`<button class="btn btn-pink" onclick="payBill(${b.ma_hd_bill})">Thu tiền</button>`:''}</td></tr>`).join(''); }); }
 function renderContracts(){ document.getElementById('contracts-list-data').innerHTML=_contracts.map(c=>`<tr><td>#${c.ma_hd}</td><td><b>${c.ten_phong}</b></td><td>${c.ho_ten}</td><td>${Number(c.tien_coc).toLocaleString()}đ</td><td><span class="badge ${c.trang_thai==='CON_HIEU_LUC'?'badge-rented':'badge-empty'}">${c.trang_thai}</span></td></tr>`).join(''); }
@@ -607,8 +641,51 @@ function openAddTenantModal(){ document.getElementById('modal_add_tenant').style
 async function submitAddTenant(){ await fetch('/api/add-tenant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ho_ten:document.getElementById('at_ten').value,sdt:document.getElementById('at_sdt').value,cccd:document.getElementById('at_cccd').value})}); closeModal(); loadData(); }
 function openContractModal(m){ document.getElementById('cont_ma_phong').value=m; document.getElementById('cont_ma_kh').innerHTML=_tenants.map(tn=>`<option value="${tn.ma_kh}">${tn.ho_ten}</option>`).join(''); document.getElementById('modal_contract').style.display='flex'; }
 async function submitContract(){ await fetch('/api/create-contract',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_phong:document.getElementById('cont_ma_phong').value,ma_kh:document.getElementById('cont_ma_kh').value})}); closeModal(); loadData(); }
-async function openOccModal(m){ document.getElementById('occ_ma_phong').value=m; const r=await fetch('/api/occupants/'+m); const d=await r.json(); document.getElementById('occ_list').innerHTML=d.map(o=>`<div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);"><b>${o.ho_ten}</b><button onclick="delOcc(${o.ma_tv})" style="background:none;border:none;color:var(--red);cursor:pointer;font-weight:700;">Gỡ</button></div>`).join('')||'<p style="padding:16px;color:var(--text-light);">Chưa có thành viên</p>'; document.getElementById('occ_ma_kh').innerHTML=_tenants.map(tn=>`<option value="${tn.ma_kh}">${tn.ho_ten}</option>`).join(''); document.getElementById('modal_occ').style.display='flex'; }
+async function openOccModal(m){ 
+    document.getElementById('occ_ma_phong').value=m; 
+    const r=await fetch('/api/occupants/'+m); 
+    const d=await r.json(); 
+    document.getElementById('occ_list').innerHTML=d.map(o=>`
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border); align-items:center;">
+            <span>
+                <b>${o.ho_ten}</b> 
+                ${o.is_owner ? '<span style="color:var(--accent); font-size:11px; margin-left:5px; font-weight:800;">(Chủ hộ)</span>' : ''}
+            </span>
+            ${!o.is_owner ? `<button onclick="delOcc(${o.ma_tv})" style="background:var(--red-light);border:none;color:var(--red);cursor:pointer;font-weight:700; padding:4px 8px; border-radius:6px; font-size:11px;">Gỡ</button>` : ''}
+        </div>`).join('')||'<p style="padding:16px;color:var(--text-light);">Chưa có thành viên</p>'; 
+    document.getElementById('occ_ma_kh').innerHTML=_tenants.map(tn=>`<option value="${tn.ma_kh}">${tn.ho_ten}</option>`).join(''); 
+    document.getElementById('modal_occ').style.display='flex'; 
+}
+async function delOcc(id){ 
+    if(!confirm('Bạn có chắc muốn gỡ thành viên này khỏi phòng?')) return;
+    await fetch('/api/delete-occupant/'+id, {method:'DELETE'}); 
+    openOccModal(document.getElementById('occ_ma_phong').value); 
+    loadData(); 
+}
 async function submitAddOccupant(){ await fetch('/api/add-occupant',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ma_phong:document.getElementById('occ_ma_phong').value,ma_kh:document.getElementById('occ_ma_kh').value})}); closeModal(); loadData(); }
+
+// EXPENSES LOGIC
+function openAddExpenseModal(){ document.getElementById('modal_add_expense').style.display='flex'; }
+async function submitAddExpense(){
+    const loai = document.getElementById('ae_loai').value;
+    const tien = document.getElementById('ae_tien').value;
+    const notes = document.getElementById('ae_note').value;
+    if(!loai || !tien) return alert('Vui lòng nhập đủ thông tin!');
+    await fetch('/api/add-expense',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({loai,tien,ghi_chu:notes})});
+    closeModal(); loadData();
+}
+async function renderExpenses(){
+    const r = await fetch('/api/expenses'); const d = await r.json();
+    document.getElementById('expenses-list-data').innerHTML = d.map(e=>`
+        <tr>
+            <td><b>${e.loai}</b></td>
+            <td style="color:var(--red);font-weight:700">-${Number(e.tien).toLocaleString()}đ</td>
+            <td>${e.ngay}</td>
+            <td style="font-size:12px;color:var(--text-sub)">${e.ghi_chu||''}</td>
+            <td><button class="btn btn-ghost" onclick="deleteExpense(${e.ma})">🗑️</button></td>
+        </tr>`).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text-light);padding:20px;">Chưa có chi phí nào</td></tr>';
+}
+async function deleteExpense(id){ if(confirm('Xác nhận xóa khoản chi này?')){ await fetch('/api/delete-expense/'+id,{method:'DELETE'}); loadData(); } }
 
 function showSection(n){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));

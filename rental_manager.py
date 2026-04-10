@@ -245,8 +245,23 @@ def get_occupants(ma_phong):
     conn = get_db_connection()
     try:
         cur = conn.cursor()
-        cur.execute("SELECT T.MA_TV, K.HO_TEN, K.CCCD, T.MA_KH FROM THANH_VIEN T JOIN NGUOI_THUE K ON T.MA_KH = K.MA_KH WHERE T.MA_PHONG = :1", [ma_phong])
-        return jsonify([{"ma_tv":r[0], "ho_ten":r[1], "cccd":r[2], "ma_kh":r[3]} for r in cur.fetchall()])
+        # 1. Lấy MA_KH của chủ hợp đồng trước
+        cur.execute("SELECT MA_KH FROM HOP_DONG WHERE MA_PHONG = :1 AND TRANG_THAI = 'CON_HIEU_LUC'", [ma_phong])
+        owner_row = cur.fetchone()
+        owner_id = owner_row[0] if owner_row else -1
+
+        # 2. Lấy danh sách thành viên + Chủ hợp đồng (để hiện thị đầy đủ)
+        # Chúng ta dùng UNION để lấy cả chủ và các thành viên phụ
+        sql = """
+            SELECT -1 as MA_TV, K.HO_TEN, K.CCCD, K.MA_KH, 1 as IS_OWNER
+            FROM NGUOI_THUE K WHERE K.MA_KH = :owner_id
+            UNION ALL
+            SELECT T.MA_TV, K.HO_TEN, K.CCCD, K.MA_KH, 0 as IS_OWNER
+            FROM THANH_VIEN T JOIN NGUOI_THUE K ON T.MA_KH = K.MA_KH 
+            WHERE T.MA_PHONG = :ma_p
+        """
+        cur.execute(sql, {"owner_id": owner_id, "ma_p": ma_phong})
+        return jsonify([{"ma_tv":r[0], "ho_ten":r[1], "cccd":r[2], "ma_kh":r[3], "is_owner": r[4]} for r in cur.fetchall()])
     finally:
         conn.close()
 
@@ -278,9 +293,19 @@ def rev():
     conn = get_db_connection()
     try:
         cur = conn.cursor()
+        # Tính tổng thu
         cur.execute("SELECT SUM(TONG_TIEN) FROM HOA_DON WHERE TRANG_THAI = 'DA_TRA'")
-        r = cur.fetchone()
-        return jsonify({"total": r[0] if r[0] else 0})
+        thu = cur.fetchone()[0] or 0
+        
+        # Tính tổng chi
+        cur.execute("SELECT SUM(SO_TIEN) FROM CHI_PHI")
+        chi = cur.fetchone()[0] or 0
+        
+        return jsonify({
+            "total_revenue": thu,
+            "total_expense": chi,
+            "net_profit": thu - chi
+        })
     finally:
         conn.close()
 
@@ -317,6 +342,41 @@ def create_c():
         return jsonify({"success": True, "message": "Hợp đồng đã được ký thành công!"})
     except Exception as e:
         return jsonify({"success": False, "message": str(e)})
+    finally:
+        conn.close()
+
+# --- API CHI PHÍ ---
+@app.route('/api/expenses', methods=['GET'])
+def get_expenses():
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT MA_CHI_PHI, LOAI_CHI_PHI, SO_TIEN, TO_CHAR(NGAY_CHI, 'DD/MM/YYYY'), GHI_CHU FROM CHI_PHI ORDER BY NGAY_CHI DESC")
+        return jsonify([{"ma":r[0], "loai":r[1], "tien":r[2], "ngay":r[3], "ghi_chu":r[4]} for r in cur.fetchall()])
+    finally:
+        conn.close()
+
+@app.route('/api/add-expense', methods=['POST'])
+def add_expense():
+    data = request.json
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO CHI_PHI (MA_CHI_PHI, LOAI_CHI_PHI, SO_TIEN, GHI_CHU) VALUES (SEQ_CHIPHI.NEXTVAL, :1, :2, :3)",
+                    [data['loai'], data['tien'], data['ghi_chu']])
+        conn.commit()
+        return jsonify({"success": True, "message": "Đã ghi nhận chi phí!"})
+    finally:
+        conn.close()
+
+@app.route('/api/delete-expense/<int:ma_cp>', methods=['DELETE'])
+def delete_expense(ma_cp):
+    conn = get_db_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute("DELETE FROM CHI_PHI WHERE MA_CHI_PHI = :1", [ma_cp])
+        conn.commit()
+        return jsonify({"success": True, "message": "Đã xóa chi phí!"})
     finally:
         conn.close()
 
